@@ -1,6 +1,12 @@
 # built application files
 *.apk
 *.ap_
+*.o*
+*.o.d
+*.o
+*.so
+*.a
+*~
 
 # files for the dex VM
 *.dex
@@ -11,6 +17,8 @@
 # generated files
 bin/
 gen/
+lib/
+obj/
 
 # Local configuration file (sdk path, etc)
 local.properties

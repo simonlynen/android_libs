@@ -1,0 +1,12 @@
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := eigen
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/eigen
+LOCAL_EXPORT_CFLAGS := -DEIGEN=1
+LOCAL_EXPORT_C_INCLUDES += $(LOCAL_C_INCLUDES) #export includes
+LOCAL_EXPORT_LDLIBS := $(LOCAL_LDLIBS) #export linker cmds
+LOCAL_EXPORT_CFLAGS := $(LOCAL_CFLAGS) #export c flgs
+LOCAL_EXPORT_CPPFLAGS := $(LOCAL_CPPFLAGS) #export cpp flgs
+include $(BUILD_STATIC_LIBRARY)
+

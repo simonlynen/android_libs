@@ -1,0 +1,3 @@
+copy iOS config.h from build
+
+copy headers that make all file extensions of source files be the same

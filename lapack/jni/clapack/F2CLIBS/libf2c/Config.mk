@@ -2,9 +2,9 @@ LOCAL_PATH:= $(call my-dir)
 
 MISC =	f77vers.c i77vers.c main.c s_rnge.c abort_.c exit_.c getarg_.c iargc_.c\
 	getenv_.c signal_.c s_stop.c s_paus.c system_.c cabs.c ctype.c\
-		derf_.c derfc_.c erf_.c erfc_.c sig_die.c
+		derf_.c derfc_.c erf_.c erfc_.c sig_die.c #uninit.c
 # uninit.c doesn't compile because fpu_control.h is missing
-#	derf_.c derfc_.c erf_.c erfc_.c sig_die.c uninit.c
+
 POW =	pow_ci.c pow_dd.c pow_di.c pow_hh.c pow_ii.c pow_ri.c pow_zi.c pow_zz.c
 CX =	c_abs.c c_cos.c c_div.c c_exp.c c_log.c c_sin.c c_sqrt.c
 DCX =	z_abs.c z_cos.c z_div.c z_exp.c z_log.c z_sin.c z_sqrt.c

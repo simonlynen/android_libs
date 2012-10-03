@@ -14,7 +14,7 @@ CB1AUX = isamax.c sasum.c saxpy.c scopy.c snrm2.c sscal.c
 
 ZB1AUX = idamax.c dasum.c daxpy.c dcopy.c dnrm2.c dscal.c
 
-ALLBLAS  = #lsame.c xerbla.c xerbla_array.c
+ALLBLAS  = lsame.c #xerbla.c xerbla_array.c
 
 SBLAS2 = sgemv.c sgbmv.c ssymv.c ssbmv.c sspmv.c \
 	strmv.c stbmv.c stpmv.c strsv.c stbsv.c stpsv.c \

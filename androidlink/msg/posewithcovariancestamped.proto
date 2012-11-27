@@ -1,0 +1,11 @@
+
+import "msg/posestamped.proto";
+
+package geometry;
+
+message posewithcovariancestamped {
+	required geometry.posestamped pose = 1;
+	//required covarianceMatrix covariance = 2;
+}
+
+

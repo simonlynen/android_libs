@@ -1,5 +1,5 @@
 
-import "msg/pose.proto";
+import "msg/posewithcovariancestamped.proto";
 import "msg/state.proto";
 import "msg/plane.proto";
 import "msg/point3d.proto";
@@ -47,7 +47,7 @@ message Response {
     required ResponseType type = 1;
     required double stamp = 2;
 
-    optional geometry.pose pose = 21;
+    optional geometry.posewithcovariancestamped pose = 21;
     optional androidlink.state state  = 22;
     optional geometry.point3d point  = 23;
     optional geometry.plane plane  = 24;

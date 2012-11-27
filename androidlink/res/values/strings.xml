@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">androidlink</string>
+    <string name="hello_world">hello_world</string>
+    <string name="menu_settings">menu_settings</string>
+</resources>

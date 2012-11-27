@@ -1,0 +1,11 @@
+
+import "msg/pose.proto";
+
+package geometry;
+
+message posestamped {
+	required double stamp = 1;
+	required geometry.pose pose = 2;
+}
+
+

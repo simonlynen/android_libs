@@ -1,0 +1,12 @@
+
+import "msg/vector3.proto";
+import "msg/quaternion.proto";
+
+package geometry;
+
+message pose {
+	required geometry.vector3 origin = 5;
+	required geometry.quaternion orientation = 6;
+}
+
+

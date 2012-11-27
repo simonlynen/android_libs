@@ -1,0 +1,6 @@
+package androidlink;
+
+message state{
+	required double stamp = 1;
+ //todo: fill with statedefinition
+}

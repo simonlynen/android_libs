@@ -1,0 +1,55 @@
+
+import "msg/pose.proto";
+import "msg/state.proto";
+import "msg/plane.proto";
+import "msg/point3d.proto";
+
+package androidlink;
+
+
+// The request has a type and then the relevant optional field is 
+// filled.
+//
+message Request {
+    enum RequestType {
+        GETDISTOMEAS = 1;
+        GETPOSE = 2;
+        GETSTATE = 3;
+    }
+
+    required RequestType type = 1;
+
+    message RequestGetDistoMeas {
+       //we might want to send some information later about the measurement type to take etc
+    }
+    optional RequestGetDistoMeas request_get_distomeas = 10;
+
+    message RegisterPose {
+       //we might want to send some information later about the data to return
+    }
+    optional RegisterPose request_register_pose = 11;
+    
+    message RegisterState {
+       //we might want to send some information later about the data to return
+    }
+    optional RegisterState request_register_state = 12;
+}
+
+message Response {
+ enum ResponseType {
+ 		ACK = 1;
+        DISTOMEAS = 2;
+        POSE = 3;
+        STATE = 4;
+        POINT = 5;
+        PLANE = 6;
+    }
+    required ResponseType type = 1;
+    required double stamp = 2;
+
+    optional geometry.pose pose = 21;
+    optional androidlink.state state  = 22;
+    optional geometry.point3d point  = 23;
+    optional geometry.plane plane  = 24;
+}
+

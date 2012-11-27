@@ -1,0 +1,16 @@
+package tests.casock.rpc.protobuf.api;
+
+message TestRequest {
+  required uint32 id = 1;
+  required uint32 message = 2;
+}
+
+message TestResponse {
+  required uint32 id = 1;
+  required uint32 message = 2;
+}
+
+service TestService {
+  rpc TestCall (TestRequest) returns (TestResponse);
+  rpc TestShutdown (TestRequest) returns (TestResponse);
+}

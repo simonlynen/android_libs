@@ -1,0 +1,13 @@
+message HelloRequest {
+  required uint32 id = 1;
+  required string message = 2;
+}
+
+message HelloResponse {
+  required uint32 id = 1;
+  required string message = 2;
+}
+
+service HelloService {
+  rpc HelloCall (HelloRequest) returns (HelloResponse);
+}

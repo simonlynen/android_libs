@@ -1,0 +1,7 @@
+package geometry;
+
+message point3d{
+	required double x = 1;
+	required double y = 2;
+	required double z = 3;
+}

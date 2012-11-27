@@ -1,0 +1,74 @@
+* Start to use issues in google codes to manage these tasks!!!
+
+* Unit tests
+  We already have unit tests for casock::rpc::protobuf::client::RPCClientProxy. Now we need tests to other phases of the process:
+    - The sending of a message by client (casock::rpc::asio::protobuf::client::RPCClientProxy, socket client, communicator, etc.);
+    - The receiving and handling of a message by server (casock::rpc::protobuf::server::RPCCallHandler, communicator, socket session, etc.);
+    - The receiving and handling of a response by client (casock::rpc::protobuf::client::RPCCallHandler, socket client, communicator, etc.);
+
+* Tests!!!!
+  Unit, system and performance tests
+
+* Refactoring!!!
+  - RPCServerCommunicator should be removed from RPCSocketServer:
+    RPCSocketSession shoud register itself in RPCClientProxy, and RPCClientProxy should create an RPCServerCommunicator for each RPCSocketSession.
+  - Use googletest, googlemock and google-glog.
+  - It should be possible for the server to disconnect specific clients. For that, the RPCSocketSession should register itself in RPCServerProxy, and the RPCCall should identify the session from wich the request came. We need to think in a way to permit the user to disconnect a RPCClientSession from the RPC service implementation;
+  - addCallHandlers, removeCallHandlers and setNumCallHandlers should be methods of a superclass (RPCProxy) with a list of handlers (std::vector<Thread>).
+
+* Documentation!!!
+	- We need Doxygen comments;
+	- We need update the UML diagrams in astah-community document (doc/casocklib.asta).
+
+=== casock::rpc::protobuf::asio ===
+
+* Check if sigio rpc server is closing socket when the user closes RPCServerProxy;
+* Implement timeouts for calls, it should be possible for the user to decide what timeout to use;
+  - DONE: Add a method to set timeout in RPCClientProxy;
+  - DONE: Add a method to set timeout in RPCCallController;
+  - DONE: Add a method to build an RPCCallController from RPCClientProxy and deny direct costruction of RPCCallController;
+  - DONE: Implement cond_wait by useconds in casock::util::Lockable;
+  - DONE: Create an RPCCall handler responsible for checking the timeout condition of each RPCCall. If a timeout happens, this handler should:
+    . Remove the RPCCall from the hash;
+    . Set the timeout condition in RPCCall::controller ();
+    . Put the RPCCall in the RPCCallQueue.
+    . Now we have RPCCallHash and RPCCallQueue inside RPCClientProxy. We need a new class to encapsulate these containers and the RPCCallTimeoutHandler. Eventually we will need a new container to controll timeouts (priority_queue).
+      . Create RPCCallTimeoutHandler:
+        . Characteristics:
+          . Inherits from Thread;
+          . Contains references to RPCCallHash and RPCCallQueue;
+          . Contains an RPCCall's ordered container (priority_queue);
+          . Permits register the pair RPCCall ID / timeout;
+        . Behavior:
+          . The method run () sleeps until the end of the earliest RPCCall timeout (the first in priority_queue).
+            When it is waken up, it pops up all pairs from priority_queue until it finds an RPCCall that is still in RPCCallHash and is not timed out doing the following with each entry:
+            When it is waken up, while there is RPCCall in the begining of priority_queue that is timed out or is not in RPCCallHash anymore, pops up the pair and do the following:
+              . If the RPCCall is timed out and it still exists in RPCCallHash:
+                . pops it from RPCCallhash;
+                . pushs it in RPCCallQueue;
+                . set timeout condition in RPCCallController.
+          . The method register () wakes up the thread if the pair is inserted in the first position of priority_queue.
+        . Specification:
+          . Should permit register RPCCall using ID (uint32) and timeout (struct timeval);
+          . Should push RPCCall from RPCCallHash, set timeout condition in RPCCallController and put it in RPCCallQueue after RPCCall timeout;
+          . Should discard RPCCalls that are not in RPCCallHash anymore after timeout;
+          . Should handle RPCCalls in order of timeout;
+          . Should handle only RPCCalls that are timed out or are not in RPCCallHash aymore.
+
+  - Add feature to RPCClientCommunicator to discard RPCCall response when it is not in the hash anymore.
+
+* Make tests using more than 1 proxy (in client and server);
+* Implement different failure types (timeout is an example);
+* Implement a callback to AsynchProcessor::run (). It should be possible for the user to know if and when the processor started to run;
+* Make tests simulating failures and crashes;
+* Implement a way to reject new calls and/or connections when the server queue is too long;
+* It should be possible to configure a maximum number of concurrent connections, request queue size, and request calls per second;
+* Implement failure handling: if the server crashes, the client handles the calls. If the client craches, the server discards the calls.
+
+===
+
+DONE:
+  - RPCClientCommunicator should be removed from RPCSocketClient:
+    RPCClientProxy should create an RPCSocketClient, synchronously connect to the server, and create an RPCClientCommunicator for it.
+* Implement a configurable number of threads for client and server;
+  - We don't need casock::rpc::protobuf::api::RpcService anymore. This class was created to encapsulate RPCChannel in the client side of Google Protocols RPC, but now we are calling RPCChannel directly;

@@ -35,6 +35,8 @@
 #include <stdio.h>
 #include <sstream>
 
+#include <geometry_msgs/PointStamped.h>
+
 #ifndef JNIEXPORT
 #define JNIEXPORT
 #endif
@@ -48,7 +50,7 @@
 extern "C"{
 
 JNIEXPORT void JNICALL
-Java_ch_ethz_asl_androidlink_MainActivity_startLinkServer( JNIEnv* env,
+Java_ch_ethz_asl_androidlink_AndroidLink_startLinkServer( JNIEnv* env,
 		jobject thiz )
 {
 	D("ANDROIDLINK starting LINKSERVER");
@@ -58,6 +60,23 @@ Java_ch_ethz_asl_androidlink_MainActivity_startLinkServer( JNIEnv* env,
 //		AndroidLink::Instance()->publish_pose(msg);
 //		boost::this_thread::sleep(boost::posix_time::milliseconds(500));
 //	}
+}
+JNIEXPORT void JNICALL
+Java_ch_ethz_asl_androidlink_AndroidLink_publishPlane( JNIEnv* env,
+		jobject thiz, double p1, double p2, double p3, double n1, double n2, double n3){
+	geometry_msgs::PointStamped p; //point
+	geometry_msgs::PointStamped n; //normal
+
+	p.point.x = p1;
+	p.point.y = p2;
+	p.point.z = p3;
+
+	n.point.x = n1;
+	n.point.y = n2;
+	n.point.z = n3;
+
+	AndroidLink::Instance()->publish_plane(p,n);
+
 }
 }
 

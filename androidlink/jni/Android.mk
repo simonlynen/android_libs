@@ -1,13 +1,11 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
+LOCAL_CPP_EXTENSION := .cc
 
 #all message definitions
 MSG_PATH := $(LOCAL_PATH)/../build/msg
-MSG_LOCAL_SRC_FILES := \
-  $(wildcard $(MSG_PATH)/*.cc)
-
-LOCAL_CPP_EXTENSION := .cc
+MSG_LOCAL_SRC_FILES += $(wildcard $(MSG_PATH)/*.cc)
 LOCAL_LDLIBS +=  -llog -ldl
 LOCAL_LDLIBS    += -landroid
 LOCAL_MODULE    := androidlink

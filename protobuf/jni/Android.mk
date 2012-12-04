@@ -98,7 +98,7 @@
     # =======================================================
     #include $(CLEAR_VARS)
 
-    LOCAL_MODULE := libprotobuf
+    LOCAL_MODULE := protobuf
     LOCAL_MODULE_TAGS := optional
 
     LOCAL_CPP_EXTENSION := .cc

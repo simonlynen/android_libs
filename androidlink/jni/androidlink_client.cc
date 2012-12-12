@@ -153,7 +153,7 @@ private:
 					std::cout<<"got first disto msg"<<std::endl;
 				}
 			}
-			assert(res->has_point);
+			assert(res->has_point());
 			double point[3];
 
 			point[0] = res->point().x();

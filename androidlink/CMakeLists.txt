@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 2.4.6)
 
-
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "~/Documents/projects/ethzasl_cmake_modules/cmake/Modules")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules")
 
 find_package(Boost REQUIRED COMPONENTS system thread)
 include_directories(${Boost_INCLUDE_DIRS})

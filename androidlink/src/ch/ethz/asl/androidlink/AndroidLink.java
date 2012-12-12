@@ -8,6 +8,10 @@ public class AndroidLink {
 		startLinkServer();
 	}
 	
+	public void stop(){
+		stopLinkServer();
+	}
+	
 	public void publishplane(List<Vector3f> plane){
 		Vector3f point = plane.get(0);
 		Vector3f d1 = plane.get(0).subtract(plane.get(1));
@@ -17,7 +21,8 @@ public class AndroidLink {
 	}
 	private native void publishPlane(double p1, double p2, double p3, double n1, double n2, double n3);
 	private native void startLinkServer();
-
+	private native void stopLinkServer();
+	
 	static {
 		System.loadLibrary("QCAR");
 		System.loadLibrary("qcartracker");

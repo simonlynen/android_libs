@@ -64,6 +64,7 @@ namespace asio = boost::asio;
 struct ServerThread{
 private:
 	boost::asio::io_service io_service;
+	boost::thread* workerThread;
 	void run(){
 		io_service.run();
 	}
@@ -82,7 +83,12 @@ public:
 			ss <<"ANDROIDLINKSERVER CRASH "<< e.what() << std::endl;
 			LOGD(ss.str().c_str());
 		}
-		boost::thread workerThread(&ServerThread::run, this);
+		workerThread = new boost::thread(&ServerThread::run, this);
+	}
+	void stop(){
+		io_service.stop();
+		workerThread->interrupt();
+		workerThread->join();
 	}
 	~ServerThread(){
 		delete inst_;
@@ -106,6 +112,9 @@ public:
 
 		}
 		return inst_->Instance();
+	}
+	static void stop(){
+		return inst_->stop();
 	}
 
 private:

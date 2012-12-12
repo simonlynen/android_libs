@@ -14,7 +14,7 @@ LOCAL_SRC_FILES := ../jni/androidlink_server.cc ../jni/androidlink.cc
 #MSG_LOCAL_SRC_FILES += $(wildcard $(MSG_PATH)/*.cc)
 #LOCAL_SRC_FILES += $(subst jni/, , $(MSG_LOCAL_SRC_FILES))
 
-LOCAL_SRC_FILES += ../build/msg/src/androidlink.pb.cc ../build/msg/src/plane.pb.cc ../build/msg/src/point3d.pb.cc ../build/msg/src/pose.pb.cc ../build/msg/src/posestamped.pb.cc ../build/msg/src/posewithcovariancestamped.pb.cc ../build/msg/src/quaternion.pb.cc ../build/msg/src/state.pb.cc ../build/msg/src/vector3.pb.cc
+LOCAL_SRC_FILES += ../build/msg/androidlink.pb.cc ../build/msg/plane.pb.cc ../build/msg/point3d.pb.cc ../build/msg/pose.pb.cc ../build/msg/posestamped.pb.cc ../build/msg/posewithcovariancestamped.pb.cc ../build/msg/quaternion.pb.cc ../build/msg/state.pb.cc ../build/msg/vector3.pb.cc
 
 #MSG_LOCAL_INCLUDE_FILES += $(wildcard $(MSG_PATH)/*.h)
 #LOCAL_C_INCLUDES += $(subst jni/, , $(MSG_LOCAL_INCLUDE_FILES))

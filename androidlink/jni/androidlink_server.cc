@@ -101,6 +101,13 @@ public:
 		start_read_header();
 	}
 
+
+	void stop()
+	{
+		LOGD("ANDROIDLINK stopping to read messages in handler");
+		m_socket.close();
+	}
+
 	//put the message on the wire
 	void publish(ResponsePointer resp){
 //		LOGD("ANDROIDLINK putting message on the wire");

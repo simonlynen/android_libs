@@ -62,6 +62,14 @@ Java_ch_ethz_asl_androidlink_AndroidLink_startLinkServer( JNIEnv* env,
 //	}
 }
 JNIEXPORT void JNICALL
+Java_ch_ethz_asl_androidlink_AndroidLink_stopLinkServer( JNIEnv* env,
+		jobject thiz )
+{
+	D("ANDROIDLINK stopping LINKSERVER");
+	AndroidLink::stop();
+}
+
+JNIEXPORT void JNICALL
 Java_ch_ethz_asl_androidlink_AndroidLink_publishPlane( JNIEnv* env,
 		jobject thiz, double p1, double p2, double p3, double n1, double n2, double n3){
 	geometry_msgs::PointStamped p; //point

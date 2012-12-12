@@ -23,6 +23,6 @@ public class AndroidLink {
 		System.loadLibrary("qcartracker");
 		System.loadLibrary("javacppbridge");
 		System.loadLibrary("sensorhandler_native");
-		System.loadLibrary("androidlink");
+//		System.loadLibrary("androidlink");
 	}
 }

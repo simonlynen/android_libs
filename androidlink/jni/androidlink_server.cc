@@ -103,7 +103,7 @@ public:
 
 	//put the message on the wire
 	void publish(ResponsePointer resp){
-		LOGD("ANDROIDLINK putting message on the wire");
+//		LOGD("ANDROIDLINK putting message on the wire");
 		vector<uint8_t> writebuf;
 		PackedMessage<androidlink::Response> resp_msg(resp);
 		resp_msg.pack(writebuf);
@@ -213,11 +213,12 @@ struct AndroidLinkServer::AndroidLinkServerImpl
 	}
 
 	void publish_pose(geometry_msgs::PoseWithCovarianceStamped& msg){
-		LOGD("ANDROIDLINK publishing pose");
+//		LOGD("ANDROIDLINK publishing pose");
 		//make a protobuf pose message from ros message
 		ResponsePointer resp(new androidlink::Response);
-		resp->set_stamp(msg.header.stamp.toSec());
 		resp->set_type(androidlink::Response::POSE);
+		resp->set_stamp(msg.header.stamp.toSec());
+		resp->mutable_pose()->mutable_pose()->set_stamp(msg.header.stamp.toSec());
 		resp->mutable_pose()->mutable_pose()->mutable_pose()->mutable_orientation()->set_w(msg.pose.pose.orientation.w);
 		resp->mutable_pose()->mutable_pose()->mutable_pose()->mutable_orientation()->set_x(msg.pose.pose.orientation.x);
 		resp->mutable_pose()->mutable_pose()->mutable_pose()->mutable_orientation()->set_y(msg.pose.pose.orientation.y);
@@ -228,7 +229,7 @@ struct AndroidLinkServer::AndroidLinkServerImpl
 
 		//TODO fill covariance
 
-		LOGD("ANDROIDLINK calling callbacks");
+//		LOGD("ANDROIDLINK calling callbacks");
 		//for all registered callbacks
 		for(size_t i = 0;i<callbacks_[androidlink::Request::GETPOSE].size();++i){
 			callbacks_[androidlink::Request::GETPOSE].at(i)->publish(resp);

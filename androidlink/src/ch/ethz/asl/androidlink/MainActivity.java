@@ -26,6 +26,6 @@ public class MainActivity extends Activity {
 		System.loadLibrary("qcartracker");
 		System.loadLibrary("javacppbridge");
 		System.loadLibrary("sensorhandler_native");
-		System.loadLibrary("androidlink");
+//		System.loadLibrary("androidlink");
 	}
 }

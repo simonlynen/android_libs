@@ -143,23 +143,85 @@ private:
 			switch (res->type())
 			{
 			case androidlink::Response::ACK:
-				std::cout<<"got ack"<<std::endl;
+				std::cout<<"got ack for registration"<<std::endl;
 				break;
 			case androidlink::Response::DISTOMEAS :
-				std::cout<<"got disto msg"<<std::endl;
-				break;
+			{
+				static bool gotmsg = false;
+				if(!gotmsg){
+					gotmsg = true;
+					std::cout<<"got first disto msg"<<std::endl;
+				}
+			}
+			assert(res->has_point);
+			double point[3];
+
+			point[0] = res->point().x();
+			point[1] = res->point().y();
+			point[2] = res->point().z();
+
+			std::cout<<"got disto measurement(x,y,z) =  ["<<point[0]<<" "<<point[1]<<" "<<point[2]<<"]"<<std::endl;
+
+			//TODO: process the data
+			break;
 			case androidlink::Response::POSE :
-				std::cout<<"got pose msg"<<std::endl;
-				break;
+			{
+				static bool gotmsg = false;
+				if(!gotmsg){
+					gotmsg = true;
+					std::cout<<"got first pose msg"<<std::endl;
+				}
+			}
+
+			assert(res->has_pose());
+
+			double orientation[4]; //Eigen Quaterniond convention: w + xi + yj + zk see: http://eigen.tuxfamily.org/dox/classEigen_1_1Quaternion.html#details
+			orientation[0] = res->pose().pose().pose().orientation().x();
+			orientation[1] = res->pose().pose().pose().orientation().y();
+			orientation[2] = res->pose().pose().pose().orientation().z();
+			orientation[3] = res->pose().pose().pose().orientation().w();
+
+			double origin[3];
+			origin[0] = res->pose().pose().pose().origin().x();
+			origin[1] = res->pose().pose().pose().origin().y();
+			origin[2] = res->pose().pose().pose().origin().z();
+
+			//TODO: process the data
+
+			std::cout<<"position(x,y,z) = ["<<origin[0]<<" "<<origin[1]<<" "<<origin[2]<<"]"<<std::endl;
+			std::cout<<"orientation(w,x,y,z) = ["<<orientation[3]<<" "<<orientation[0]<<" "<<orientation[1]<<" "<<orientation[2]<<"]"<<std::endl;
+
+			break;
 			case androidlink::Response::STATE :
-				std::cout<<"got state msg"<<std::endl;
-				break;
+			{
+				static bool gotmsg = false;
+				if(!gotmsg){
+					gotmsg = true;
+					std::cout<<"got first state msg"<<std::endl;
+				}
+			}
+			//TODO: process the data
+			break;
 			case androidlink::Response::POINT :
-				std::cout<<"got point msg"<<std::endl;
-				break;
+			{
+				static bool gotmsg = false;
+				if(!gotmsg){
+					gotmsg = true;
+					std::cout<<"got first point msg"<<std::endl;
+				}
+			}
+			//TODO: process the data
+			break;
 			case androidlink::Response::PLANE :
-				std::cout<<"got plane msg"<<std::endl;
-				break;
+			{
+				static bool gotmsg = false;
+				if(!gotmsg){
+					gotmsg = true;
+					std::cout<<"got first plane msg"<<std::endl;
+				}
+			}
+			//TODO: process the data
+			break;
 			default:
 				std::cout<<"got unknown response type!"<<std::endl;
 				break;
